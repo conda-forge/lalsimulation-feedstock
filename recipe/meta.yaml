@@ -12,7 +12,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win]
 
 requirements:
@@ -64,6 +64,8 @@ outputs:
       - bin/lalsim-*
       - etc/lalsimulation-user-env.*
       - include/lal/LALSim*.h
+      - include/lal/SWIGLALSimulation*
+      - include/lal/swiglalsimulation*
       - lib/liblalsimulation*
       - lib/pkgconfig/lalsimulation*.pc
       - share/lalsimulation
