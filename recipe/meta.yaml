@@ -12,16 +12,16 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1000
+  number: 1001
   skip: true  # [win]
 
 requirements:
   build:
+    - {{ compiler('c') }}
     - pkg-config
     - make
-    - {{ compiler('c') }}
-  host:
     - swig >=3.0.7
+  host:
     - gsl
     - lal >=6.19.0
 
@@ -29,10 +29,12 @@ outputs:
   - name: lalsimulation
     script: install-c.sh
     requirements:
-      host:
+      build:
         - {{ compiler('c') }}
+        - pkg-config
         - make
         - swig >=3.0.7
+      host:
         - gsl
         - lal >=6.19.0
       run:
@@ -55,7 +57,9 @@ outputs:
         - lalsim-sgwb --help
         - lalsim-unicorn --help
     about:
-      home: https://wiki.ligo.org/DASWG/LALSuite
+      home: https://wiki.ligo.org/Computing/DASWG/LALSuite
+      doc_url: https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/
+      dev_url: https://git.ligo.org/lscsoft/lalsuite/
       license: GPLv3
       license_family: GPL
       license_file: COPYING
@@ -68,11 +72,12 @@ outputs:
   - name: python-lalsimulation
     script: install-python.sh
     requirements:
-      host:
+      build:
         - {{ compiler('c') }}
-        - make
         - pkg-config
+        - make
         - swig >=3.0.7
+      host:
         - {{ pin_subpackage('lalsimulation', exact=True) }}
         - python
         - numpy
@@ -85,7 +90,9 @@ outputs:
       imports:
         - lalsimulation
     about:
-      home: https://wiki.ligo.org/DASWG/LALSuite
+      home: https://wiki.ligo.org/Computing/DASWG/LALSuite
+      doc_url: https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/
+      dev_url: https://git.ligo.org/lscsoft/lalsuite/
       license: GPLv3
       license_family: GPL
       license_file: COPYING
@@ -96,7 +103,7 @@ outputs:
         This package contains the python bindings.
 
 about:
-  home: https://wiki.ligo.org/DASWG/LALSuite
+  home: https://wiki.ligo.org/Computing/DASWG/LALSuite
   license: GPLv3
   license_family: GPL
   summary: LSC Algorithm Simulation Library
