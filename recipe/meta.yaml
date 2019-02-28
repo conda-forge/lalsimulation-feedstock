@@ -2,6 +2,10 @@
 {% set version = "1.8.2" %}
 {% set sha256 = "8696002c3ccf20492e58839c8b7b2760736b61c098fa3e5ec09b23a843ed1b6b" %}
 
+# dependencies
+{% set lal_version = "6.19.2" %}
+{% set swig_version = "3.0.7" %}
+
 package:
   name: {{ name }}
   version: {{ version }}
@@ -18,80 +22,59 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - pkg-config
     - make
-    - swig >=3.0.7
+    - pkg-config
+    - swig >={{ swig_version }}
   host:
     - gsl
-    - lal >=6.19.0
+    - lal >={{ lal_version }}
+  run:
+    - gsl
+    - lal >={{ lal_version }}
+
+test:
+  commands:
+    - lalsimulation_version --verbose
+    - lalsim-bh-qnmode --help
+    - lalsim-bh-ringdown --help
+    - lalsim-bh-sphwf --help
+    - lalsim-burst --help
+    - lalsim-detector-noise --help
+    - lalsim-detector-strain --help
+    - lalsim-inject --help
+    - lalsim-inspiral --help
+    - lalsim-ns-eos-table --help
+    - lalsim-ns-mass-radius --help
+    - lalsim-ns-params --help
+    - lalsim-sgwb --help
+    - lalsim-unicorn --help
 
 outputs:
   - name: lalsimulation
-    script: install-c.sh
-    requirements:
-      build:
-        - {{ compiler('c') }}
-        - pkg-config
-        - make
-        - swig >=3.0.7
-      host:
-        - gsl
-        - lal >=6.19.0
-      run:
-        - gsl
-        - lal >=6.19.0
-    test:
-      commands:
-        - lalsimulation_version --verbose
-        - lalsim-bh-qnmode --help
-        - lalsim-bh-ringdown --help
-        - lalsim-bh-sphwf --help
-        - lalsim-burst --help
-        - lalsim-detector-noise --help
-        - lalsim-detector-strain --help
-        - lalsim-inject --help
-        - lalsim-inspiral --help
-        - lalsim-ns-eos-table --help
-        - lalsim-ns-mass-radius --help
-        - lalsim-ns-params --help
-        - lalsim-sgwb --help
-        - lalsim-unicorn --help
-    about:
-      home: https://wiki.ligo.org/Computing/DASWG/LALSuite
-      doc_url: https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/
-      dev_url: https://git.ligo.org/lscsoft/lalsuite/
-      license: GPLv3
-      license_family: GPL
-      license_file: COPYING
-      summary: LSC Algorithm Simulation Library
-      description: |
-        The LSC Algorithm Simulation Library for gravitational wave data
-        analysis.
-        This package contains the shared-object libraries needed to run
-        applications that use the LAL Simulation library.
+
   - name: python-lalsimulation
     script: install-python.sh
     requirements:
       build:
         - {{ compiler('c') }}
-        - pkg-config
         - make
-        - swig >=3.0.7
+        - pkg-config
+        - swig >={{ swig_version }}
       host:
         - {{ pin_subpackage('lalsimulation', exact=True) }}
-        - python
         - numpy
+        - python
       run:
         - {{ pin_subpackage('lalsimulation', exact=True) }}
         - python
         - {{ pin_compatible('numpy') }}
-        - python-lal >=6.19.0
+        - python-lal >={{ lal_version }}
     test:
       imports:
         - lalsimulation
     about:
       home: https://wiki.ligo.org/Computing/DASWG/LALSuite
-      doc_url: https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/
+      doc_url: https://docs.ligo.org/lscsoft/lalsuite/lalsimulation/
       dev_url: https://git.ligo.org/lscsoft/lalsuite/
       license: GPLv3
       license_family: GPL
@@ -104,9 +87,19 @@ outputs:
 
 about:
   home: https://wiki.ligo.org/Computing/DASWG/LALSuite
+  doc_url: https://docs.ligo.org/lscsoft/lalsuite/lalsimulation/
+  dev_url: https://git.ligo.org/lscsoft/lalsuite/
   license: GPLv3
   license_family: GPL
+  license_file: COPYING
   summary: LSC Algorithm Simulation Library
+  description: |
+    The LSC Algorithm Simulation Library for gravitational wave data
+    analysis.
+    This package contains the shared-object libraries needed to run
+    applications that use the LAL Simulation library. If you want to
+    install the Python bindings, please install the associated
+    python-lalsimulation package.
 
 extra:
   recipe-maintainers:
