@@ -16,7 +16,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
@@ -51,6 +51,9 @@ test:
 
 outputs:
   - name: lalsimulation
+    build:
+      run_exports:
+        - {{ pin_subpackage("lalsimulation", max_pin="x.x") }}
 
   - name: python-lalsimulation
     script: install-python.sh
