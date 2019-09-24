@@ -43,7 +43,7 @@ test:
     - lalsim-detector-noise -C -t 1 -r 10
     - lalsim-detector-strain --help
     - lalsim-inject --help
-    - lalsim-inspiral > /dev/null
+    - lalsim-inspiral --sample-rate 10 > /dev/null
     - lalsim-ns-eos-table -n ALF1 1> /dev/null
     - lalsim-ns-mass-radius -n ALF1 1> /dev/null
     - lalsim-ns-params -n ALF1
