@@ -13,10 +13,11 @@ export GSL_LIBS="-L${PREFIX}/lib -lgsl"
 # configure only python bindings and pure-python extras
 ./configure \
 	--prefix=$PREFIX \
+	--disable-doxygen \
+	--enable-help2man \
 	--disable-swig-iface \
 	--enable-swig-python \
 	--enable-python \
-	--disable-doxygen \
 	--disable-gcc-flags \
 	--enable-silent-rules || { cat config.log; exit 1; }
 

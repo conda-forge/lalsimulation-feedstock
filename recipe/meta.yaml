@@ -16,12 +16,13 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
   build:
     - {{ compiler('c') }}
+    - help2man
     - make
     - pkg-config >=0.18.0
     - swig >={{ swig_version }}
