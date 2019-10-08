@@ -72,7 +72,7 @@ outputs:
         - numpy 1.9
         - python
       run:
-        - gsl
+        - gsl  # [linux]
         - lal >={{ lal_version }}
         - {{ pin_subpackage('lalsimulation', exact=True) }}
         - {{ pin_compatible('numpy') }}
