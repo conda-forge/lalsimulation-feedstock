@@ -16,7 +16,9 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1
+  error_overdepending: true
+  error_overlinking: true
+  number: 2
   skip: true  # [win]
 
 requirements:
@@ -35,6 +37,7 @@ requirements:
 
 test:
   commands:
+    - test ${LALSIMULATION_DATADIR} == "${PREFIX}/share/lalsimulation"  # [unix]
     - lalsimulation_version --verbose
     - lalsim-bh-qnmode -l 0 -m 0 -s 0
     - lalsim-bh-ringdown -M 10 -a 0 -r 100 -e 0.001 -i 0 -l 2 -m 2
@@ -69,7 +72,7 @@ outputs:
         - numpy 1.9
         - python
       run:
-        - gsl
+        - gsl  # [linux]
         - lal >={{ lal_version }}
         - {{ pin_subpackage('lalsimulation', exact=True) }}
         - {{ pin_compatible('numpy') }}
