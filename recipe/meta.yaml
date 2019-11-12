@@ -18,7 +18,7 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 2
+  number: 3
   skip: true  # [win]
 
 requirements:
@@ -69,7 +69,7 @@ outputs:
         - swig >={{ swig_version }}
       host:
         - {{ pin_subpackage('lalsimulation', exact=True) }}
-        - numpy 1.9
+        - numpy
         - python
       run:
         - gsl  # [linux]
