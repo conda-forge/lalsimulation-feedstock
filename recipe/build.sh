@@ -9,13 +9,14 @@ export GSL_LIBS="-L${PREFIX}/lib -lgsl"
 ./configure \
 	--prefix="${PREFIX}" \
 	--disable-doxygen \
-	--enable-help2man \
-	--enable-swig-iface \
+	--disable-gcc-flags \
+	--disable-python \
 	--disable-swig-octave \
 	--disable-swig-python \
-	--disable-python \
-	--disable-gcc-flags \
-	--enable-silent-rules
+	--enable-help2man \
+	--enable-silent-rules \
+	--enable-swig-iface \
+;
 
 # build
 make -j ${CPU_COUNT}

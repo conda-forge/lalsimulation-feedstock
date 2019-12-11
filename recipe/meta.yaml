@@ -1,9 +1,9 @@
 {% set name = "lalsimulation" %}
-{% set version = "1.9.1" %}
-{% set sha256 = "65edb672581021e8e5ba9c4eb8ae937091964e7301a3a9728b42c78015bea53e" %}
+{% set version = "1.10.0" %}
+{% set sha256 = "e104356acf294350eaf982e13831d177dec1d5ece53cfe69b03a73e94e810beb" %}
 
 # dependencies
-{% set lal_version = "6.20.0" %}
+{% set lal_version = "6.21.0" %}
 {% set swig_version = "3.0.7" %}
 
 package:
@@ -11,14 +11,13 @@ package:
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.xz
   url: http://software.ligo.org/lscsoft/source/lalsuite/{{ name }}-{{ version }}.tar.xz
   sha256: {{ sha256 }}
 
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 3
+  number: 0
   skip: true  # [win]
 
 requirements:
@@ -36,6 +35,8 @@ requirements:
     - lal >={{ lal_version }}
 
 test:
+  requires:
+    - pkg-config  # [unix]
   commands:
     - test ${LALSIMULATION_DATADIR} == "${PREFIX}/share/lalsimulation"  # [unix]
     - lalsimulation_version --verbose
@@ -52,6 +53,7 @@ test:
     - lalsim-ns-params -n ALF1
     - lalsim-sgwb --geo -t 1 -r 100 -W 1 1> /dev/null
     - lalsim-unicorn --help
+    - test "$(pkg-config --modversion ${PKG_NAME})" == "${PKG_VERSION}"  # [unix]
 
 outputs:
   - name: lalsimulation
@@ -61,6 +63,9 @@ outputs:
 
   - name: python-lalsimulation
     script: install-python.sh
+    build:
+      error_overdepending: true
+      error_overlinking: true
     requirements:
       build:
         - {{ compiler('c') }}
@@ -81,27 +86,35 @@ outputs:
     test:
       imports:
         - lalsimulation
+      requires:
+        - mock  # [py<33]
+        - pathlib  # [py<34]
+        - pytest >=4.0.0a0
+      source_files:
+        - test/python
+      commands:
+        - pushd test/python; python -m pytest -v; popd
     about:
-      home: https://wiki.ligo.org/Computing/LALSuite
-      doc_url: https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/
-      dev_url: https://git.ligo.org/lscsoft/lalsuite/
-      license: GPLv3
-      license_family: GPL
-      license_file: COPYING
-      summary: LSC Algorithm Simulation Library
+      home: "https://wiki.ligo.org/Computing/LALSuite"
+      doc_url: "https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/"
+      dev_url: "https://git.ligo.org/lscsoft/lalsuite/"
+      license: "GPL-3.0-or-later"
+      license_family: "GPL"
+      license_file: "COPYING"
+      summary: "LSC Algorithm Simulation Library"
       description: |
         The LSC Algorithm Simulation Library for gravitational wave data
         analysis.
         This package contains the python bindings.
 
 about:
-  home: https://wiki.ligo.org/Computing/LALSuite
-  doc_url: https://docs.ligo.org/lscsoft/lalsuite/lalsimulation/
-  dev_url: https://git.ligo.org/lscsoft/lalsuite/
-  license: GPLv3
-  license_family: GPL
-  license_file: COPYING
-  summary: LSC Algorithm Simulation Library
+  home: "https://wiki.ligo.org/Computing/LALSuite"
+  doc_url: "https://docs.ligo.org/lscsoft/lalsuite/lalsimulation/"
+  dev_url: "https://git.ligo.org/lscsoft/lalsuite/"
+  license: "GPL-3.0-or-later"
+  license_family: "GPL"
+  license_file: "COPYING"
+  summary: "LSC Algorithm Simulation Library"
   description: |
     The LSC Algorithm Simulation Library for gravitational wave data
     analysis.
