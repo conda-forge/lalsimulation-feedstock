@@ -14,6 +14,7 @@ export GSL_LIBS="-L${PREFIX}/lib -lgsl"
 	--disable-swig-octave \
 	--disable-swig-python \
 	--enable-help2man \
+	--enable-openmp \
 	--enable-silent-rules \
 	--enable-swig-iface \
 ;

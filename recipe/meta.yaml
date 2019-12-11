@@ -4,7 +4,7 @@
 
 # dependencies
 {% set lal_version = "6.21.0" %}
-{% set swig_version = "3.0.7" %}
+{% set swig_version = "3.0.9" %}
 
 package:
   name: {{ name }}
@@ -17,22 +17,25 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
   build:
     - {{ compiler('c') }}
     - help2man
+    - llvm-openmp  # [osx]
     - make
     - pkg-config >=0.18.0
     - swig >={{ swig_version }}
   host:
     - gsl
     - lal >={{ lal_version }}
+    - llvm-openmp  # [osx]
   run:
     - gsl
     - lal >={{ lal_version }}
+    - llvm-openmp  # [osx]
 
 test:
   requires:
