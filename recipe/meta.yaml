@@ -63,6 +63,9 @@ outputs:
 
   - name: python-lalsimulation
     script: install-python.sh
+    build:
+      error_overdepending: true
+      error_overlinking: true
     requirements:
       build:
         - {{ compiler('c') }}
