@@ -31,6 +31,7 @@ requirements:
   host:
     - gsl
     - lal >={{ lal_version }}
+    - libgomp  # [linux]
     - llvm-openmp  # [osx]
   run:
     - gsl
