@@ -1,9 +1,9 @@
 {% set name = "lalsimulation" %}
-{% set version = "1.10.1" %}
-{% set sha256 = "abbe8022abf5be4c67689e44da91e6aa8c1c5d9d552990166febbf1c5f73bc12" %}
+{% set version = "2.0.0" %}
+{% set sha256 = "7847dedc2a341498862fbbcece489fca04e55716250574df278305377a921d8d" %}
 
 # dependencies
-{% set lal_version = "6.21.0" %}
+{% set lal_version = "6.22.0" %}
 {% set swig_version = "3.0.9" %}
 
 package:
@@ -17,7 +17,7 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 2
+  number: 0
   skip: true  # [win]
 
 requirements:
@@ -63,13 +63,15 @@ outputs:
   - name: lalsimulation
     build:
       run_exports:
-        - {{ pin_subpackage("lalsimulation", max_pin="x.x") }}
+        - {{ pin_subpackage("lalsimulation", max_pin="x") }}
 
   - name: python-lalsimulation
     script: install-python.sh
     build:
       error_overdepending: true
       error_overlinking: true
+      ignore_run_exports:
+        - python
     requirements:
       build:
         - {{ compiler('c') }}
@@ -97,7 +99,7 @@ outputs:
       source_files:
         - test/python
       commands:
-        - pushd test/python; python -m pytest -v; popd
+        - pushd test/python; python -m pytest -rs -v; popd
     about:
       home: "https://wiki.ligo.org/Computing/LALSuite"
       doc_url: "https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/"
