@@ -1,6 +1,6 @@
 {% set name = "lalsimulation" %}
-{% set version = "2.0.0" %}
-{% set sha256 = "7847dedc2a341498862fbbcece489fca04e55716250574df278305377a921d8d" %}
+{% set version = "2.1.0" %}
+{% set sha256 = "e5d84f1e8663c7e9e1f74584c8b1fc56e855efee2bcce2d7982dd7b716e3db95" %}
 
 # dependencies
 {% set lal_version = "6.22.0" %}
@@ -101,26 +101,26 @@ outputs:
       commands:
         - pushd test/python; python -m pytest -rs -v; popd
     about:
-      home: "https://wiki.ligo.org/Computing/LALSuite"
-      doc_url: "https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/"
-      dev_url: "https://git.ligo.org/lscsoft/lalsuite/"
-      license: "GPL-2.0-or-later"
-      license_family: "GPL"
-      license_file: "COPYING"
-      summary: "LSC Algorithm Simulation Library"
+      home: https://wiki.ligo.org/Computing/LALSuite
+      doc_url: https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/
+      dev_url: https://git.ligo.org/lscsoft/lalsuite/
+      license: GPL-2.0-or-later
+      license_family: GPL
+      license_file: COPYING
+      summary: LSC Algorithm Simulation Library
       description: |
         The LSC Algorithm Simulation Library for gravitational wave data
         analysis.
         This package contains the python bindings.
 
 about:
-  home: "https://wiki.ligo.org/Computing/LALSuite"
-  doc_url: "https://docs.ligo.org/lscsoft/lalsuite/lalsimulation/"
-  dev_url: "https://git.ligo.org/lscsoft/lalsuite/"
-  license: "GPL-2.0-or-later"
-  license_family: "GPL"
-  license_file: "COPYING"
-  summary: "LSC Algorithm Simulation Library"
+  home: https://wiki.ligo.org/Computing/LALSuite
+  doc_url: https://docs.ligo.org/lscsoft/lalsuite/lalsimulation/
+  dev_url: https://git.ligo.org/lscsoft/lalsuite/
+  license: GPL-2.0-or-later
+  license_family: GPL
+  license_file: COPYING
+  summary: LSC Algorithm Simulation Library
   description: |
     The LSC Algorithm Simulation Library for gravitational wave data
     analysis.
