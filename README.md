@@ -11,14 +11,12 @@ Summary: LSC Algorithm Simulation Library
 
 Development: https://git.ligo.org/lscsoft/lalsuite/
 
-Documentation: https://docs.ligo.org/lscsoft/lalsuite/lalsimulation/
+Documentation: https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/
 
 The LSC Algorithm Simulation Library for gravitational wave data
 analysis.
 This package contains the shared-object libraries needed to run
-applications that use the LAL Simulation library. If you want to
-install the Python bindings, please install the associated
-python-lalsimulation package.
+applications that use the LAL Simulation library.
 
 
 Current build status
@@ -66,6 +64,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-lalsimulation-green.svg)](https://anaconda.org/conda-forge/lalsimulation) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/lalsimulation.svg)](https://anaconda.org/conda-forge/lalsimulation) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/lalsimulation.svg)](https://anaconda.org/conda-forge/lalsimulation) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/lalsimulation.svg)](https://anaconda.org/conda-forge/lalsimulation) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-liblalsimulation-green.svg)](https://anaconda.org/conda-forge/liblalsimulation) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/liblalsimulation.svg)](https://anaconda.org/conda-forge/liblalsimulation) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/liblalsimulation.svg)](https://anaconda.org/conda-forge/liblalsimulation) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/liblalsimulation.svg)](https://anaconda.org/conda-forge/liblalsimulation) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-python--lalsimulation-green.svg)](https://anaconda.org/conda-forge/python-lalsimulation) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/python-lalsimulation.svg)](https://anaconda.org/conda-forge/python-lalsimulation) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/python-lalsimulation.svg)](https://anaconda.org/conda-forge/python-lalsimulation) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/python-lalsimulation.svg)](https://anaconda.org/conda-forge/python-lalsimulation) |
 
 Installing lalsimulation
@@ -77,10 +76,10 @@ Installing `lalsimulation` from the `conda-forge` channel can be achieved by add
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `lalsimulation, python-lalsimulation` can be installed with:
+Once the `conda-forge` channel has been enabled, `lalsimulation, liblalsimulation, python-lalsimulation` can be installed with:
 
 ```
-conda install lalsimulation python-lalsimulation
+conda install lalsimulation liblalsimulation python-lalsimulation
 ```
 
 It is possible to list all of the versions of `lalsimulation` available on your platform with:
