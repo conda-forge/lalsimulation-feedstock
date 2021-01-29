@@ -57,6 +57,11 @@ outputs:
         - gsl
         - liblal >={{ lal_version }}
         - llvm-openmp  # [osx]
+    test:
+      requires:
+        - pkg-config  # [unix]
+      commands:
+        - test "$(pkg-config --modversion lalsimulation)" == "${PKG_VERSION}"  # [unix]
     about:
       home: https://wiki.ligo.org/Computing/LALSuite
       doc_url: https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/
