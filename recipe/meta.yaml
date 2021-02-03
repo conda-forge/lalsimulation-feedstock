@@ -17,7 +17,7 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
@@ -57,6 +57,9 @@ outputs:
         - gsl
         - liblal >={{ lal_version }}
         - llvm-openmp  # [osx]
+      run_constrained:
+        - lalsimulation >=2.5.0
+        - python-lalsimulation >=2.5.0
     test:
       requires:
         - pkg-config  # [unix]
