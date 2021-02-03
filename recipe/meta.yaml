@@ -23,7 +23,6 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - help2man >=1.37
     - llvm-openmp  # [osx]
     - make
     - pkg-config >=0.18.0
@@ -90,6 +89,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - help2man >=1.37
         - make
         - pkg-config >=0.18.0
         - swig >={{ swig_version }}
@@ -135,6 +135,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - help2man >=1.37
         - make
       host:
         - gsl
