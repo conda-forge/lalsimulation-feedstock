@@ -17,7 +17,7 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
@@ -57,6 +57,9 @@ outputs:
         - gsl
         - liblal >={{ lal_version }}
         - llvm-openmp  # [osx]
+      run_constrained:
+        - lalsimulation >=2.5.0
+        - python-lalsimulation >=2.5.0
     test:
       requires:
         - pkg-config  # [unix]
@@ -87,6 +90,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - help2man >=1.37
         - make
         - pkg-config >=0.18.0
         - swig >={{ swig_version }}
@@ -99,6 +103,8 @@ outputs:
         - {{ pin_compatible('numpy') }}
         - python
         - python-lal >={{ lal_version }}
+        # swig bindings cause segmentation fault
+        - numpy <1.20.0a0
     test:
       requires:
         - pytest >=4.0.0a0
@@ -132,6 +138,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - help2man >=1.37
         - make
       host:
         - gsl
