@@ -102,6 +102,8 @@ outputs:
         - {{ pin_compatible('numpy') }}
         - python
         - python-lal >={{ lal_version }}
+        # swig bindings cause segmentation fault
+        - numpy <1.20.0a0
     test:
       requires:
         - pytest >=4.0.0a0
