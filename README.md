@@ -7,9 +7,9 @@ Package license: GPL-2.0-or-later
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/lalsimulation-feedstock/blob/master/LICENSE.txt)
 
-Summary: LSC Algorithm Simulation Library
+Summary: LSC Algorithm Simulation Library shared object libraries
 
-Development: https://git.ligo.org/lscsoft/lalsuite/
+Development: https://git.ligo.org/lscsoft/lalsuite.git
 
 Documentation: https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/
 
