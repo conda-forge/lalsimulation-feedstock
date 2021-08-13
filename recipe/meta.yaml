@@ -1,6 +1,6 @@
 {% set name = "lalsimulation" %}
-{% set version = "2.5.1" %}
-{% set sha256 = "0b1f02e21495888d557896248cb72246c45d76fc4a36d35a154947cf169ebbf4" %}
+{% set version = "3.0.0" %}
+{% set sha256 = "ffafb0b12ca5a80b91de2e5ddfa87ed1c83565994ca5c6f088bcc8bf490b4236" %}
 
 # dependencies
 {% set lal_version = "7.1.0a0" %}
@@ -30,7 +30,7 @@ requirements:
     - swig >={{ swig_version }}
   host:
     - gsl
-    - lal >={{ lal_version }}
+    - liblal >={{ lal_version }}
     - libgomp  # [linux]
     - llvm-openmp  # [osx]
 
@@ -105,6 +105,7 @@ outputs:
         - python
       run:
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
+        - mpmath >=1.0.0
         - {{ pin_compatible('numpy') }}
         - python
         - python-lal >={{ lal_version }}
@@ -118,6 +119,7 @@ outputs:
       imports:
         - lalsimulation
         - lalsimulation.nrfits
+        - lalsimulation.tilts_at_infinity
     about:
       home: https://wiki.ligo.org/Computing/LALSuite
       doc_url: https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/

@@ -13,9 +13,9 @@ docker_image:
 gsl:
 - '2.6'
 numpy:
-- '1.16'
-- '1.16'
-- '1.16'
+- '1.18'
+- '1.18'
+- '1.18'
 - '1.19'
 pin_run_as_build:
   python:
