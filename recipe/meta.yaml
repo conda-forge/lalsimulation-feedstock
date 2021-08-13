@@ -30,7 +30,7 @@ requirements:
     - swig >={{ swig_version }}
   host:
     - gsl
-    - lal >={{ lal_version }}
+    - liblal >={{ lal_version }}
     - libgomp  # [linux]
     - llvm-openmp  # [osx]
 
@@ -105,6 +105,7 @@ outputs:
         - python
       run:
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
+        - mpmath >=1.0.0
         - {{ pin_compatible('numpy') }}
         - python
         - python-lal >={{ lal_version }}
@@ -118,6 +119,7 @@ outputs:
       imports:
         - lalsimulation
         - lalsimulation.nrfits
+        - lalsimulation.tilts_at_infinity
     about:
       home: https://wiki.ligo.org/Computing/LALSuite
       doc_url: https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/
