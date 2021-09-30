@@ -13,6 +13,8 @@ package:
 source:
   url: https://software.ligo.org/lscsoft/source/lalsuite/{{ name }}-{{ version }}.tar.xz
   sha256: {{ sha256 }}
+  patches:
+    - no-gsl_version-check.patch  # [build_platform != target_platform]
 
 build:
   error_overdepending: true
@@ -99,6 +101,10 @@ outputs:
         - make
         - pkg-config >=0.18.0
         - swig >={{ swig_version }}
+        # extras for cross-compilation:
+        - cross-python_{{ target_platform }}  # [build_platform != target_platform]
+        - numpy                               # [build_platform != target_platform]
+        - python                              # [build_platform != target_platform]
       host:
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
         - numpy
@@ -149,6 +155,7 @@ outputs:
         - {{ compiler('c') }}
         - help2man >=1.37
         - make
+        - sed
       host:
         - gsl
         - liblal >={{ lal_version }}
