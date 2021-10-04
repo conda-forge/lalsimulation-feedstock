@@ -92,6 +92,7 @@ outputs:
       error_overdepending: true
       error_overlinking: true
       ignore_run_exports:
+        - openssl
         # ignore run_exports from python's recipe
         - python
     requirements:
@@ -108,6 +109,7 @@ outputs:
       host:
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
         - numpy
+        - openssl
         - python
       run:
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
@@ -149,6 +151,7 @@ outputs:
       error_overdepending: true
       error_overlinking: true
       ignore_run_exports:
+        - openssl
         - python
     requirements:
       build:
@@ -160,6 +163,7 @@ outputs:
         - gsl
         - liblal >={{ lal_version }}
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
+        - openssl
         - python
       run:
         - gsl
