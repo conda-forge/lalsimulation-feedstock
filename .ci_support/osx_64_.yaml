@@ -15,7 +15,7 @@ llvm_openmp:
 macos_machine:
 - x86_64-apple-darwin13.4.0
 numpy:
-- '1.18'
+- '1.21'
 - '1.18'
 - '1.18'
 - '1.19'
@@ -26,7 +26,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.6.* *_cpython
+- 3.10.* *_cpython
 - 3.7.* *_cpython
 - 3.8.* *_cpython
 - 3.9.* *_cpython
