@@ -3,7 +3,7 @@
 {% set sha256 = "9be82007eedec1a85de89faffd85e03c7893356da1dda1a27de572f015f63e26" %}
 
 # dependencies
-{% set lal_version = "7.1.0a0" %}
+{% set lal_version = "7.1.0" %}
 {% set swig_version = "3.0.10" %}
 
 package:
@@ -13,8 +13,6 @@ package:
 source:
   url: https://software.ligo.org/lscsoft/source/lalsuite/{{ name }}-{{ version }}.tar.xz
   sha256: {{ sha256 }}
-  patches:
-    - no-gsl_version-check.patch  # [build_platform != target_platform]
 
 build:
   error_overdepending: true
@@ -25,7 +23,6 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - help2man >=1.37
     - llvm-openmp  # [osx]
     - make
     - pkg-config >=0.18.0
@@ -92,7 +89,6 @@ outputs:
       error_overdepending: true
       error_overlinking: true
       ignore_run_exports:
-        - openssl
         # ignore run_exports from python's recipe
         - python
     requirements:
@@ -109,7 +105,6 @@ outputs:
       host:
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
         - numpy
-        - openssl
         - python
       run:
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
@@ -151,7 +146,6 @@ outputs:
       error_overdepending: true
       error_overlinking: true
       ignore_run_exports:
-        - openssl
         - python
     requirements:
       build:
@@ -163,7 +157,6 @@ outputs:
         - gsl
         - liblal >={{ lal_version }}
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
-        - openssl
         - python
       run:
         - gsl
