@@ -1,6 +1,6 @@
 {% set name = "lalsimulation" %}
-{% set version = "3.0.0" %}
-{% set sha256 = "ffafb0b12ca5a80b91de2e5ddfa87ed1c83565994ca5c6f088bcc8bf490b4236" %}
+{% set version = "3.1.0" %}
+{% set sha256 = "9be82007eedec1a85de89faffd85e03c7893356da1dda1a27de572f015f63e26" %}
 
 # dependencies
 {% set lal_version = "7.1.0a0" %}
@@ -19,7 +19,7 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 3
+  number: 0
   skip: true  # [win]
 
 requirements:
