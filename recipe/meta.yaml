@@ -1,6 +1,6 @@
 {% set name = "lalsimulation" %}
-{% set version = "3.1.0" %}
-{% set sha256 = "9be82007eedec1a85de89faffd85e03c7893356da1dda1a27de572f015f63e26" %}
+{% set version = "3.1.1" %}
+{% set sha256 = "7e9ba27c23183fc6f5b87f0bc62448212425f88715360b8bb078b553569714dd" %}
 
 # dependencies
 {% set lal_version = "7.1.0" %}
