@@ -7,16 +7,15 @@ Package license: GPL-2.0-or-later
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/lalsimulation-feedstock/blob/master/LICENSE.txt)
 
-Summary: LSC Algorithm Simulation Library shared object libraries
+Summary: LSC Algorithm Simulation Library data files
 
 Development: https://git.ligo.org/lscsoft/lalsuite.git
 
 Documentation: https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/
 
-The LSC Algorithm Simulation Library for gravitational wave data
-analysis.
-This package contains the shared-object libraries needed to run
-applications that use the LAL Simulation library.
+The LSC Algorithm Simulation Library for gravitational wave data analysis.
+This package contains the data files needed to run various applications
+and routines that use the LAL Simulation library.
 
 
 Current build status
@@ -71,6 +70,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-lalsimulation-green.svg)](https://anaconda.org/conda-forge/lalsimulation) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/lalsimulation.svg)](https://anaconda.org/conda-forge/lalsimulation) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/lalsimulation.svg)](https://anaconda.org/conda-forge/lalsimulation) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/lalsimulation.svg)](https://anaconda.org/conda-forge/lalsimulation) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-lalsimulation--data-green.svg)](https://anaconda.org/conda-forge/lalsimulation-data) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/lalsimulation-data.svg)](https://anaconda.org/conda-forge/lalsimulation-data) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/lalsimulation-data.svg)](https://anaconda.org/conda-forge/lalsimulation-data) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/lalsimulation-data.svg)](https://anaconda.org/conda-forge/lalsimulation-data) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-liblalsimulation-green.svg)](https://anaconda.org/conda-forge/liblalsimulation) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/liblalsimulation.svg)](https://anaconda.org/conda-forge/liblalsimulation) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/liblalsimulation.svg)](https://anaconda.org/conda-forge/liblalsimulation) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/liblalsimulation.svg)](https://anaconda.org/conda-forge/liblalsimulation) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-python--lalsimulation-green.svg)](https://anaconda.org/conda-forge/python-lalsimulation) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/python-lalsimulation.svg)](https://anaconda.org/conda-forge/python-lalsimulation) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/python-lalsimulation.svg)](https://anaconda.org/conda-forge/python-lalsimulation) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/python-lalsimulation.svg)](https://anaconda.org/conda-forge/python-lalsimulation) |
 
@@ -84,10 +84,10 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `lalsimulation, liblalsimulation, python-lalsimulation` can be installed with:
+Once the `conda-forge` channel has been enabled, `lalsimulation, lalsimulation-data, liblalsimulation, python-lalsimulation` can be installed with:
 
 ```
-conda install lalsimulation liblalsimulation python-lalsimulation
+conda install lalsimulation lalsimulation-data liblalsimulation python-lalsimulation
 ```
 
 It is possible to list all of the versions of `lalsimulation` available on your platform with:
