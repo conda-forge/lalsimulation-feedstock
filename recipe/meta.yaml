@@ -172,6 +172,9 @@ outputs:
       error_overlinking: true
       ignore_run_exports:
         - python
+      missing_dso_whitelist:
+        # see https://github.com/conda/conda-build/pull/4529
+        - "**/ld-linux-aarch64.so*"  # [linux and aarch64]
     requirements:
       build:
         - {{ compiler('c') }}
