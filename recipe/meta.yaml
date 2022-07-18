@@ -143,7 +143,9 @@ outputs:
       source_files:
         - test/python
       commands:
-        - python -m pytest -ra -v test/python
+        # only test with pytest on native platform,
+        # tests run _very_ slowly when cross-compiling
+        - python -m pytest -ra -v test/python  # [build_platform == target_platform]
       imports:
         - lalsimulation
         - lalsimulation.nrfits
