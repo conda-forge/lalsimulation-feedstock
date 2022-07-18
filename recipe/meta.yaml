@@ -143,7 +143,9 @@ outputs:
       source_files:
         - test/python
       commands:
-        - python -m pytest -ra -v test/python
+        # only test with pytest on native platform,
+        # tests run _very_ slowly when cross-compiling
+        - python -m pytest -ra -v test/python  # [build_platform == target_platform]
       imports:
         - lalsimulation
         - lalsimulation.nrfits
@@ -172,6 +174,9 @@ outputs:
       error_overlinking: true
       ignore_run_exports:
         - python
+      missing_dso_whitelist:
+        # see https://github.com/conda/conda-build/pull/4529
+        - "**/ld-linux-aarch64.so*"  # [linux and aarch64]
     requirements:
       build:
         - {{ compiler('c') }}
