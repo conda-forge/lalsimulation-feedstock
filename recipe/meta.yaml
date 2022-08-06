@@ -1,6 +1,6 @@
 {% set name = "lalsimulation" %}
-{% set version = "3.1.2" %}
-{% set sha256 = "c9142493e503ef81ba05766258a1197dca80ec7131dd245df357618bb2bad8fa" %}
+{% set version = "4.0.0" %}
+{% set sha256 = "4096a31f70450e6d5909a5e1147b779169852887d55b806c8b859f87983f20d7" %}
 
 # dependencies
 {% set lal_version = "7.1.0" %}
@@ -17,7 +17,7 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 1
+  number: 0
   skip: true  # [win]
 
 requirements:
@@ -176,7 +176,7 @@ outputs:
         - python
       missing_dso_whitelist:
         # see https://github.com/conda/conda-build/pull/4529
-        - "**/ld-linux-aarch64.so*"  # [linux and aarch64]
+        - '**/ld-linux-aarch64.so*'  # [linux and aarch64]
     requirements:
       build:
         - {{ compiler('c') }}
