@@ -1,9 +1,8 @@
 {% set name = "lalsimulation" %}
 {% set version = "4.0.0" %}
-{% set sha256 = "4096a31f70450e6d5909a5e1147b779169852887d55b806c8b859f87983f20d7" %}
 
 # dependencies
-{% set lal_version = "7.1.0" %}
+{% set lal_version = "7.2.0" %}
 {% set swig_version = "3.0.10" %}
 
 package:
@@ -12,7 +11,7 @@ package:
 
 source:
   url: https://software.ligo.org/lscsoft/source/lalsuite/{{ name }}-{{ version }}.tar.xz
-  sha256: {{ sha256 }}
+  sha256: 4096a31f70450e6d5909a5e1147b779169852887d55b806c8b859f87983f20d7
 
 build:
   error_overdepending: true
@@ -90,8 +89,6 @@ outputs:
       commands:
         # check library
         - test -f ${PREFIX}/lib/liblalsimulation${SHLIB_EXT}  # [unix]
-        # check activate variables
-        - test "${LALSIMULATION_DATADIR}" = "${PREFIX}/share/lalsimulation"  # [unix]
         # check pkg-config
         - pkg-config --print-errors --exact-version "${PKG_VERSION}" lalsimulation
     about:
