@@ -2,7 +2,7 @@
 {% set version = "4.0.2" %}
 
 # dependencies
-{% set lal_version = "7.2.0" %}
+{% set lal_version = "7.2.2" %}
 {% set swig_version = "3.0.10" %}
 
 package:
