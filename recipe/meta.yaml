@@ -3,7 +3,7 @@
 
 # dependencies
 {% set lal_version = "7.2.2" %}
-{% set swig_version = "3.0.10" %}
+{% set swig_version = "3.0.10,<4.1.0a0" %}
 
 package:
   name: {{ name }}-split
@@ -16,7 +16,7 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
