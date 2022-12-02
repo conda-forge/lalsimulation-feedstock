@@ -16,7 +16,7 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 1
+  number: 2
   skip: true  # [win]
 
 requirements:
@@ -106,7 +106,7 @@ outputs:
         applications that use the LAL Simulation library.
 
   - name: python-lalsimulation
-    script: install-python.sh
+    script: build-python.sh
     build:
       error_overdepending: true
       error_overlinking: true
