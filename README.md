@@ -1,11 +1,30 @@
+About lalsimulation-feedstock
+=============================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/lalsimulation-feedstock/blob/main/LICENSE.txt)
+
 About lalsimulation
-===================
+-------------------
 
 Home: https://wiki.ligo.org/Computing/LALSuite
 
 Package license: GPL-2.0-or-later
 
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/lalsimulation-feedstock/blob/main/LICENSE.txt)
+Summary: LSC Algorithm Simulation Library
+
+Development: https://git.ligo.org/lscsoft/lalsuite.git
+
+Documentation: https://docs.ligo.org/lscsoft/lalsuite/lalsimulation/
+
+The LSC Algorithm Simulation Library for gravitational wave data
+analysis.
+
+About lalsimulation-data
+------------------------
+
+Home: https://wiki.ligo.org/Computing/LALSuite
+
+Package license: GPL-2.0-or-later
 
 Summary: LSC Algorithm Simulation Library data files
 
@@ -16,6 +35,45 @@ Documentation: https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/
 The LSC Algorithm Simulation Library for gravitational wave data analysis.
 This package contains the data files needed to run various applications
 and routines that use the LAL Simulation library.
+
+About liblalsimulation
+----------------------
+
+Home: https://wiki.ligo.org/Computing/LALSuite
+
+Package license: GPL-2.0-or-later
+
+Summary: LSC Algorithm Simulation Library shared object libraries
+
+Development: https://git.ligo.org/lscsoft/lalsuite.git
+
+Documentation: https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/
+
+The LSC Algorithm Simulation Library for gravitational wave data
+analysis.
+This package contains the shared-object libraries needed to run
+applications that use the LAL Simulation library.
+
+About python-lalsimulation
+--------------------------
+
+Home: https://wiki.ligo.org/Computing/LALSuite
+
+Package license: GPL-2.0-or-later
+
+Summary: LSC Algorithm Simulation Library
+
+Development: https://git.ligo.org/lscsoft/lalsuite.git
+
+Documentation: https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/
+
+The LSC Algorithm Simulation Library for gravitational wave data analysis.
+This package contains the Python bindings of the LALSimulation C libraries
+and additional Python modules.
+
+Note: this package only provides the importable Python libraries.
+All command-line interfaces, scripts, and executables are
+part of the `lalsimulation` package.
 
 
 Current build status
