@@ -1,5 +1,5 @@
 {% set name = "lalsimulation" %}
-{% set version = "5.1.0" %}
+{% set version = "5.2.0" %}
 
 # dependencies
 {% set lal_version = "7.3.0" %}
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://software.ligo.org/lscsoft/source/lalsuite/{{ name }}-{{ version }}.tar.xz
-  sha256: 55c0c0aa3fef45e5f6445d4479a53c3a416b53c3c80e86033c3c56990bd56daf
+  sha256: 4b359a8d5d8722c549275f02b7148c6174c2d5c17f609a1b0f9c00ce18191aaa
 
 build:
   error_overdepending: true
