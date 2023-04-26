@@ -144,6 +144,7 @@ outputs:
         - libgomp  # [linux]
         - liblal >={{ lal_version }}
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
+        - llvm-openmp  # [osx]
         - python
       run:
         - astropy
@@ -151,6 +152,7 @@ outputs:
         - gsl
         - liblal >={{ lal_version }}
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
+        - llvm-openmp  # [osx]
         - mpmath >=1.0.0
         - {{ pin_compatible('numpy') }}
         - python
