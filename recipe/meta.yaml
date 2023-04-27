@@ -22,6 +22,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - libgomp  # [linux]
     - llvm-openmp  # [osx]
     - make
     - pkg-config >=0.18.0
@@ -37,8 +38,6 @@ requirements:
   host:
     - gsl
     - liblal >={{ lal_version }}
-    - libgomp  # [linux]
-    - llvm-openmp  # [osx]
     - numpy
     - pytest
     - python
@@ -80,19 +79,17 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - libgomp  # [linux]
         - llvm-openmp  # [osx]
       host:
         - gsl
         - {{ pin_subpackage('lalsimulation-data', exact=True) }}
         - liblal >={{ lal_version }}
-        - libgomp  # [linux]
-        - llvm-openmp  # [osx]
         - python
       run:
         - gsl
         - {{ pin_subpackage('lalsimulation-data', exact=True) }}
         - liblal >={{ lal_version }}
-        - llvm-openmp  # [osx]
         - python
       run_constrained:
         - lalsimulation >=2.5.0
@@ -138,13 +135,13 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - libgomp  # [linux]
+        - llvm-openmp  # [osx]
         - python
       host:
         - gsl
-        - libgomp  # [linux]
         - liblal >={{ lal_version }}
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
-        - llvm-openmp  # [osx]
         - python
       run:
         - astropy
@@ -152,7 +149,6 @@ outputs:
         - gsl
         - liblal >={{ lal_version }}
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
-        - llvm-openmp  # [osx]
         - mpmath >=1.0.0
         - {{ pin_compatible('numpy') }}
         - python
