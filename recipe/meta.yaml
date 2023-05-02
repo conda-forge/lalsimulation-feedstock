@@ -48,8 +48,6 @@ requirements:
 
 outputs:
   - name: lalsimulation-data
-    build:
-      noarch: generic
     requirements:
       run_constrained:
         - liblalsimulation >=3.1.2
