@@ -16,7 +16,7 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
@@ -199,6 +199,7 @@ outputs:
         - gsl
         - liblal >={{ lal_version }}
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
+        - python
       run:
         - gsl
         - liblal >={{ lal_version }}
