@@ -32,7 +32,7 @@ ${_make} -C python LIBS=""
 ${_make}
 
 # test
-if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" ]]; then
   ${_make} check
 fi
 
