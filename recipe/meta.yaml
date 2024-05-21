@@ -12,11 +12,14 @@ package:
 source:
   url: https://software.ligo.org/lscsoft/source/lalsuite/{{ name }}-{{ version }}.tar.xz
   sha256: b6c1781e81134108845f38e3a66963ae661c2a915d413cf14e68995888dcc0a5
+  patches:
+    # fix bogus PYTHON_VERSION setting in ./configure
+    - configure-python_version.patch
 
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
