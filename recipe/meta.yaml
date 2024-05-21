@@ -156,16 +156,17 @@ outputs:
         - python-lal >={{ lal_version }}
         - scipy
     files:
-      # library modules
       - {{ SP_DIR }}/lalsimulation/
-      # package metadata (.dist-info/.egg-info)
-      - {{ SP_DIR }}/lalsimulation-*/
     test:
+      files:
+        - test_external_python.py
       requires:
         - pytest >=4.0.0a0
       source_files:
         - test/python
       commands:
+        # check that the link from the C library to Python works
+        - python -m pytest -ra -v test_external_python.py
         # only test with pytest on native platform,
         # tests run _very_ slowly when cross-compiling
         - python -m pytest -ra -v test/python  # [build_platform == target_platform]
