@@ -80,6 +80,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ stdlib('c') }}
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
       host:
@@ -136,6 +137,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ stdlib('c') }}
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
         - python
@@ -199,6 +201,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ stdlib('c') }}
       host:
         - gsl
         - liblal >={{ lal_version }}
