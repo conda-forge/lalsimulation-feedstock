@@ -12,11 +12,14 @@ package:
 source:
   url: https://software.ligo.org/lscsoft/source/lalsuite/{{ name }}-{{ version }}.tar.xz
   sha256: b6c1781e81134108845f38e3a66963ae661c2a915d413cf14e68995888dcc0a5
+  patches:
+    # fix bogus PYTHON_VERSION setting in ./configure
+    - configure-python_version.patch
 
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
@@ -77,6 +80,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ stdlib('c') }}
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
       host:
@@ -133,6 +137,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ stdlib('c') }}
         - libgomp  # [linux]
         - llvm-openmp  # [osx]
         - python
@@ -153,16 +158,17 @@ outputs:
         - python-lal >={{ lal_version }}
         - scipy
     files:
-      # library modules
       - {{ SP_DIR }}/lalsimulation/
-      # package metadata (.dist-info/.egg-info)
-      - {{ SP_DIR }}/lalsimulation-*/
     test:
+      files:
+        - test_external_python.py
       requires:
         - pytest >=4.0.0a0
       source_files:
         - test/python
       commands:
+        # check that the link from the C library to Python works
+        - python -m pytest -ra -v test_external_python.py
         # only test with pytest on native platform,
         # tests run _very_ slowly when cross-compiling
         - python -m pytest -ra -v test/python  # [build_platform == target_platform]
@@ -195,6 +201,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ stdlib('c') }}
       host:
         - gsl
         - liblal >={{ lal_version }}
