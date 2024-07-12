@@ -15,6 +15,9 @@ source:
   patches:
     # fix bogus PYTHON_VERSION setting in ./configure
     - configure-python_version.patch
+    # fix numpy include (partial backport of
+    #   https://git.ligo.org/lscsoft/lalsuite/-/merge_requests/2275)
+    - numpy-include.patch
 
 build:
   error_overdepending: true
