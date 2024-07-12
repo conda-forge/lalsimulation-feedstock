@@ -19,7 +19,7 @@ source:
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 1
+  number: 2
   skip: true  # [win]
 
 requirements:
@@ -153,7 +153,6 @@ outputs:
         - liblal >={{ lal_version }}
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
         - mpmath >=1.0.0
-        - {{ pin_compatible('numpy') }}
         - python
         - python-lal >={{ lal_version }}
         - scipy
