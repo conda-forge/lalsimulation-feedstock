@@ -23,7 +23,8 @@ build:
   error_overdepending: true
   error_overlinking: true
   number: 2
-  skip: true  # [win]
+  # no LAL on windows, no astropy>=6 on Python < 3.10
+  skip: true  # [win or py<310]
 
 requirements:
   build:
