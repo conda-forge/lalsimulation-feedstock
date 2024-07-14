@@ -15,16 +15,20 @@ source:
   patches:
     # fix bogus PYTHON_VERSION setting in ./configure
     - configure-python_version.patch
+    # fix numpy include (partial backport of
+    #   https://git.ligo.org/lscsoft/lalsuite/-/merge_requests/2275)
+    - numpy-include.patch
 
 build:
   error_overdepending: true
   error_overlinking: true
-  number: 1
+  number: 2
   skip: true  # [win]
 
 requirements:
   build:
     - {{ compiler('c') }}
+    - help2man >=1.37
     - libgomp  # [linux]
     - llvm-openmp  # [osx]
     - make
@@ -35,9 +39,6 @@ requirements:
     - cross-python_{{ target_platform }}  # [build_platform != target_platform]
     - numpy                               # [build_platform != target_platform]
     - python                              # [build_platform != target_platform]
-    # extras for help2man / make check
-    - astropy  # [build_platform != target_platform]
-    - gwpy  # [build_platform != target_platform]
   host:
     - gsl
     - liblal >={{ lal_version }}
@@ -45,9 +46,10 @@ requirements:
     - pytest
     - python
     - python-lal >={{ lal_version }}
-    # extras for help2man / make check
-    - astropy
-    - gwpy
+    # extras for make check (astropy not compatible with
+    # numpy 2.0 on Python 3.9)
+    - astropy  # [py != 39]
+    - gwpy  # [py != 39]
 
 outputs:
   - name: lalsimulation-data
@@ -132,7 +134,6 @@ outputs:
     build:
       ignore_run_exports:
         - liblalsimulation
-        - numpy
         - python
     requirements:
       build:
@@ -153,7 +154,7 @@ outputs:
         - liblal >={{ lal_version }}
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
         - mpmath >=1.0.0
-        - {{ pin_compatible('numpy') }}
+        - numpy
         - python
         - python-lal >={{ lal_version }}
         - scipy
@@ -220,7 +221,7 @@ outputs:
       # user env scripts
       - etc/{{ name }}-user-env.*
       # manuals
-      - man/man*/lalsim*
+      - share/man/man*/lalsim*
     test:
       commands:
         - lalsimulation_version --verbose
