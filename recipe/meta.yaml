@@ -2,7 +2,7 @@
 {% set version = "6.0.0" %}
 
 # dependencies
-{% set lal_version = "7.5.0" %}
+{% set lal_version = "7.6.0" %}
 {% set swig_version = "3.0.10" %}
 
 package:
@@ -12,15 +12,8 @@ package:
 source:
   url: https://software.ligo.org/lscsoft/source/lalsuite/{{ name }}-{{ version }}.tar.xz
   sha256: 258a6951e71b84db80d354d37ca3be459301bb52472920a9873973607b0d2323
-  patches:
-    # fix bogus PYTHON_VERSION setting in ./configure
-    - configure-python_version.patch
-    # fix numpy include (partial backport of
-    #   https://git.ligo.org/lscsoft/lalsuite/-/merge_requests/2275)
-    - numpy-include.patch
 
 build:
-  error_overdepending: true
   error_overlinking: true
   number: 0
   skip: true  # [win]
@@ -131,10 +124,6 @@ outputs:
         applications that use the LAL Simulation library.
 
   - name: python-lalsimulation
-    build:
-      ignore_run_exports:
-        - liblalsimulation
-        - python
     requirements:
       build:
         - {{ compiler('c') }}
@@ -196,9 +185,6 @@ outputs:
         part of the `lalsimulation` package.
 
   - name: lalsimulation
-    build:
-      ignore_run_exports:
-        - python
     requirements:
       build:
         - {{ compiler('c') }}
