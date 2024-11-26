@@ -3,7 +3,7 @@
 
 # dependencies
 {% set lal_version = "7.6.0" %}
-{% set swig_version = "3.0.10" %}
+{% set swig_version = "3.0.10,<4.3.0a0" %}
 
 package:
   name: {{ name }}-split
