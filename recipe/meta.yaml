@@ -15,7 +15,7 @@ source:
 
 build:
   error_overlinking: true
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
@@ -41,7 +41,7 @@ requirements:
     - python-lal >={{ lal_version }}
     # extras for make check (astropy not compatible with
     # numpy 2.0 on Python 3.9)
-    - astropy  # [py != 39]
+    - astropy-base  # [py != 39]
     - gwpy  # [py != 39]
 
 outputs:
@@ -137,7 +137,7 @@ outputs:
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
         - python
       run:
-        - astropy
+        - astropy-base
         - gwpy
         - gsl
         - liblal >={{ lal_version }}
