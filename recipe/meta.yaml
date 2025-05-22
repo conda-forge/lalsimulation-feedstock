@@ -135,6 +135,7 @@ outputs:
         - gsl
         - liblal >={{ lal_version }}
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
+        - numpy
         - python
       run:
         - astropy-base
