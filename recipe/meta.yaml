@@ -1,8 +1,8 @@
 {% set name = "lalsimulation" %}
-{% set version = "6.1.0" %}
+{% set version = "6.2.0" %}
 
 # dependencies
-{% set lal_version = "7.6.0" %}
+{% set lal_version = "7.7.0" %}
 {% set swig_version = "3.0.10" %}
 
 package:
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://software.ligo.org/lscsoft/source/lalsuite/{{ name }}-{{ version }}.tar.xz
-  sha256: c754d1bde0169f888ddc3af61b7ef4fb18c5c65c6dbdfc8d6134daeda3038fb3
+  sha256: 484625c21893401399af2c5fc08751569e8e6c265d18d859cc6c442fbaff26b2
 
 build:
   error_overlinking: true
@@ -135,6 +135,7 @@ outputs:
         - gsl
         - liblal >={{ lal_version }}
         - {{ pin_subpackage('liblalsimulation', exact=True) }}
+        - numpy
         - python
       run:
         - astropy-base
