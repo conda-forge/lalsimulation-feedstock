@@ -15,12 +15,13 @@ source:
 
 build:
   error_overlinking: true
-  number: 1
+  number: 2
   skip: true  # [win]
 
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib('c') }}
     - help2man >=1.37
     - libgomp  # [linux]
     - llvm-openmp  # [osx]
