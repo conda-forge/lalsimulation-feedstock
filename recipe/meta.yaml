@@ -3,7 +3,7 @@
 
 # dependencies
 {% set lal_version = "7.7.0" %}
-{% set swig_version = "3.0.10" %}
+{% set swig_version = "4.4.1" %}
 
 package:
   name: {{ name }}-split
@@ -15,7 +15,7 @@ source:
 
 build:
   error_overlinking: true
-  number: 2
+  number: 3
   skip: true  # [win]
 
 requirements:
@@ -28,7 +28,7 @@ requirements:
     - make
     - pkg-config >=0.18.0
     - python
-    - swig >={{ swig_version }}
+    - swig {{ swig_version }}.*
     # extras for cross-compilation:
     - cross-python_{{ target_platform }}  # [build_platform != target_platform]
     - numpy                               # [build_platform != target_platform]
