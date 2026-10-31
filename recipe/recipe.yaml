@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "6.2.0"
+  version: "7.0.0"
   # dependencies
   lal_version: "7.7.0"
   swig_version: "4.4.1"
@@ -12,12 +12,12 @@ recipe:
 
 source:
   url: https://software.ligo.org/lscsoft/source/lalsuite/lalsimulation-${{ version }}.tar.xz
-  sha256: 484625c21893401399af2c5fc08751569e8e6c265d18d859cc6c442fbaff26b2
+  sha256: 5bf148c82e73c79038caae93b346b43161154fe85405df90528b1086f9d4ab05
 
 build:
   dynamic_linking:
     overdepending_behavior: error
-  number: 5
+  number: 0
   skip:
     - win
 
