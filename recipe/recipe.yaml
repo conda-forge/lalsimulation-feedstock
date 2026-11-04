@@ -178,6 +178,9 @@ outputs:
         - python
         - python-lal >=${{ lal_version }}
         - scipy
+      ignore_run_exports:
+        by_name:
+          - liblalsimulation
     tests:
       - python:
           imports:
