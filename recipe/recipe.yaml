@@ -1,0 +1,282 @@
+schema_version: 1
+
+context:
+  version: "6.2.0"
+  # dependencies
+  lal_version: "7.7.0"
+  swig_version: "4.4.1"
+
+recipe:
+  name: lalsimulation-split
+  version: ${{ version }}
+
+source:
+  url: https://software.ligo.org/lscsoft/source/lalsuite/lalsimulation-${{ version }}.tar.xz
+  sha256: 484625c21893401399af2c5fc08751569e8e6c265d18d859cc6c442fbaff26b2
+
+build:
+  dynamic_linking:
+    overdepending_behavior: error
+  number: 5
+  skip:
+    - win
+
+outputs:
+  - staging:
+      name: lalsimulation-build
+    requirements:
+      build:
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+        - help2man >=1.37
+        - if: linux
+          then: libgomp
+        - if: osx
+          then: llvm-openmp
+        - make
+        - pkg-config >=0.18.0
+        - python
+        - swig ${{ swig_version }}.*
+        # extras for cross-compilation:
+        - if: build_platform != host_platform
+          then:
+            - cross-python_${{ host_platform }}
+            - numpy
+      host:
+        - gsl
+        - liblal >=${{ lal_version }}
+        - numpy
+        - pytest
+        - python
+        - python-lal >=${{ lal_version }}
+        # extras for make check
+        - astropy-base
+        - gwpy
+    build:
+      script: build.sh
+
+  - package:
+      name: lalsimulation-data
+    inherit:
+      from: lalsimulation-build
+      run_exports: false
+    build:
+      # these files are the same for every variant, so use a fixed string to only
+      # publish one build per platform; variant.ignore_keys must not be used for
+      # this as it would also remove the variant pins from the staging environment
+      string: ${{ build_number }}
+      files:
+        - etc/conda/*activate.d/*activate-lalsimulation.*
+        - share/lalsimulation/**
+    requirements:
+      run_constraints:
+        - liblalsimulation >=3.1.2
+    tests:
+      - script:
+          - test -f ${LALSIMULATION_DATADIR}/LIGO-P1200087-v18-AdV_DESIGN.txt
+    about:
+      summary: LSC Algorithm Simulation Library data files
+      description: |
+        The LSC Algorithm Simulation Library for gravitational wave data analysis.
+        This package contains the data files needed to run various applications
+        and routines that use the LAL Simulation library.
+
+  - package:
+      name: liblalsimulation
+    inherit:
+      from: lalsimulation-build
+      run_exports: false
+    build:
+      files:
+        # headers
+        - include/lal/*LALSim*.h
+        # SWIG interface files
+        - include/lal/swiglalsimulation.i
+        - include/lal/SWIGLALSim*.i
+        # libraries
+        - lib/liblalsimulation.*
+        # pkg-config
+        - lib/pkgconfig/lalsimulation.pc
+    requirements:
+      build:
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+        - if: linux
+          then: libgomp
+        - if: osx
+          then: llvm-openmp
+      host:
+        - gsl
+        - ${{ pin_subpackage('lalsimulation-data', exact=True) }}
+        - liblal >=${{ lal_version }}
+        # the library links to libpython directly to embed the interpreter;
+        # constrain this to the python variant, otherwise the solver can pair
+        # an older python build that bundles libpython with a newer libpython
+        - libpython ${{ python }}
+        - python
+      run:
+        - gsl
+        - ${{ pin_subpackage('lalsimulation-data', exact=True) }}
+        - liblal >=${{ lal_version }}
+        - ${{ pin_compatible('libpython', lower_bound='x.x', upper_bound='x.x') }}
+        - python
+      run_constraints:
+        - lalsimulation >=2.5.0
+        - python-lalsimulation >=2.5.0
+      run_exports:
+        - ${{ pin_subpackage('liblalsimulation', upper_bound='x') }}
+    tests:
+      # check library
+      - package_contents:
+          lib:
+            - lalsimulation
+      # check pkg-config
+      - script:
+          - pkg-config --print-errors --exact-version "${{ version }}" lalsimulation
+        requirements:
+          run:
+            - pkg-config
+    about:
+      summary: LSC Algorithm Simulation Library shared object libraries
+      description: |
+        The LSC Algorithm Simulation Library for gravitational wave data
+        analysis.
+        This package contains the shared-object libraries needed to run
+        applications that use the LAL Simulation library.
+
+  - package:
+      name: python-lalsimulation
+    inherit:
+      from: lalsimulation-build
+      run_exports: false
+    build:
+      files:
+        - lib/python*/site-packages/lalsimulation/**
+    requirements:
+      build:
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+        - if: linux
+          then: libgomp
+        - if: osx
+          then: llvm-openmp
+        - python
+      host:
+        - gsl
+        - liblal >=${{ lal_version }}
+        - ${{ pin_subpackage('liblalsimulation', exact=True) }}
+        - numpy
+        - python
+      run:
+        - astropy-base
+        - gwpy
+        - gsl
+        - liblal >=${{ lal_version }}
+        - ${{ pin_subpackage('liblalsimulation', exact=True) }}
+        - mpmath >=1.0.0
+        - numpy
+        - python
+        - python-lal >=${{ lal_version }}
+        - scipy
+    tests:
+      - python:
+          imports:
+            - lalsimulation
+            - lalsimulation.nrfits
+            - lalsimulation.tilts_at_infinity
+            - lalsimulation.gwsignal
+          # the autotools build doesn't install Python package metadata
+          pip_check: false
+      - files:
+          recipe:
+            - test_external_python.py
+          source:
+            - test/python/**
+        requirements:
+          run:
+            - pytest >=4.0.0a0
+        script:
+          # check that the link from the C library to Python works
+          - python -m pytest -ra -v test_external_python.py
+          # only test with pytest on native platform,
+          # tests run _very_ slowly when cross-compiling
+          - if: build_platform == host_platform
+            then: python -m pytest -ra -v test/python
+    about:
+      summary: LSC Algorithm Simulation Library Python bindings
+      description: |
+        The LSC Algorithm Simulation Library for gravitational wave data analysis.
+        This package contains the Python bindings of the LALSimulation C libraries
+        and additional Python modules.
+
+        Note: this package only provides the importable Python libraries.
+        All command-line interfaces, scripts, and executables are
+        part of the `lalsimulation` package.
+
+  - package:
+      name: lalsimulation
+    inherit:
+      from: lalsimulation-build
+      run_exports: false
+    build:
+      files:
+        # executables
+        - bin/lalsim*
+        # user env scripts
+        - etc/lalsimulation-user-env.*
+        # manuals
+        - share/man/man*/lalsim*
+    requirements:
+      build:
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+      host:
+        - gsl
+        - liblal >=${{ lal_version }}
+        - ${{ pin_subpackage('liblalsimulation', exact=True) }}
+        - python
+      run:
+        - gsl
+        - liblal >=${{ lal_version }}
+        - ${{ pin_subpackage('liblalsimulation', exact=True) }}
+        - mpmath >=1.0.0
+        - python
+        - ${{ pin_subpackage('python-lalsimulation', exact=True) }}
+    tests:
+      - script:
+          - lalsimulation_version --verbose
+          - lalsim-bh-qnmode -l 0 -m 0 -s 0
+          - lalsim-bh-ringdown -M 10 -a 0 -r 100 -e 0.001 -i 0 -l 2 -m 2
+          - lalsim-bh-sphwf -a 0 -l 2 -m 2 -s 0
+          - lalsim-burst -w SineGaussian -q 10 -f 100 -H 1e-21 1> /dev/null
+          - lalsim-detector-noise -C -t 1 -r 10
+          - lalsim-detector-strain --help
+          - lalsim-inject --help
+          - lalsim-inspiral > /dev/null
+          - lalsim-ns-eos-table -n ALF1 1> /dev/null
+          - lalsim-ns-mass-radius -n ALF1 1> /dev/null
+          - lalsim-ns-params -n ALF1
+          - lalsim-sgwb --geo -t 1 -r 100 -W 1 1> /dev/null
+          - lalsim-unicorn --help
+    about:
+      summary: LSC Algorithm Simulation Library
+      description: |
+        The LSC Algorithm Simulation Library for gravitational wave data
+        analysis.
+
+about:
+  homepage: https://wiki.ligo.org/Computing/LALSuite
+  documentation: https://docs.ligo.org/lscsoft/lalsuite/lalsimulation/
+  repository: https://git.ligo.org/lscsoft/lalsuite.git
+  license: GPL-2.0-or-later
+  license_file: COPYING
+  summary: LSC Algorithm Simulation Library
+  description: |
+    The LSC Algorithm Simulation Library for gravitational wave data
+    analysis.
+
+extra:
+  feedstock-name: lalsimulation
+  recipe-maintainers:
+    - duncanmmacleod
+    - skymoo
