@@ -3,7 +3,7 @@ schema_version: 1
 context:
   version: "7.0.0"
   # dependencies
-  lal_version: "7.7.0"
+  lal_version: "8.0.0"
   swig_version: "4.4.1"
 
 recipe:
