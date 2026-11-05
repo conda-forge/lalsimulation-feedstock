@@ -15,8 +15,6 @@ source:
   sha256: 5bf148c82e73c79038caae93b346b43161154fe85405df90528b1086f9d4ab05
 
 build:
-  dynamic_linking:
-    overdepending_behavior: error
   number: 0
   skip:
     - win
@@ -29,10 +27,6 @@ outputs:
         - ${{ compiler('c') }}
         - ${{ stdlib('c') }}
         - help2man >=1.37
-        - if: linux
-          then: libgomp
-        - if: osx
-          then: llvm-openmp
         - make
         - pkg-config >=0.18.0
         - python
@@ -50,6 +44,10 @@ outputs:
         - pytest
         - python
         - python-lal >=${{ lal_version }}
+        # openmp
+        - if: linux
+          then: libgomp
+          else: llvm-openmp
         # extras for make check
         - astropy-base
         - gwpy
@@ -102,19 +100,21 @@ outputs:
       build:
         - ${{ compiler('c') }}
         - ${{ stdlib('c') }}
-        - if: linux
-          then: libgomp
-        - if: osx
-          then: llvm-openmp
       host:
         - gsl
         - ${{ pin_subpackage('lalsimulation-data', exact=True) }}
         - liblal >=${{ lal_version }}
+        - libpython
         - python
+        # openmp
+        - if: linux
+          then: libgomp
+          else: llvm-openmp
       run:
         - gsl
         - ${{ pin_subpackage('lalsimulation-data', exact=True) }}
         - liblal >=${{ lal_version }}
+        - libpython
         - python
       run_constraints:
         - lalsimulation >=2.5.0
@@ -152,10 +152,6 @@ outputs:
       build:
         - ${{ compiler('c') }}
         - ${{ stdlib('c') }}
-        - if: linux
-          then: libgomp
-        - if: osx
-          then: llvm-openmp
         - python
       host:
         - gsl
@@ -163,6 +159,10 @@ outputs:
         - ${{ pin_subpackage('liblalsimulation', exact=True) }}
         - numpy
         - python
+        # openmp
+        - if: linux
+          then: libgomp
+          else: llvm-openmp
       run:
         - astropy-base
         - gwpy
