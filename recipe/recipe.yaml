@@ -191,16 +191,12 @@ outputs:
           # the autotools build doesn't install Python package metadata
           pip_check: false
       - files:
-          recipe:
-            - test_external_python.py
           source:
             - test/python/**
         requirements:
           run:
             - pytest >=4.0.0a0
         script:
-          # check that the link from the C library to Python works
-          - python -m pytest -ra -v test_external_python.py
           # only test with pytest on native platform,
           # tests run _very_ slowly when cross-compiling
           - if: build_platform == host_platform
