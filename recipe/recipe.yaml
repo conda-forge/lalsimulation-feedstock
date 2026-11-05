@@ -45,6 +45,7 @@ outputs:
       host:
         - gsl
         - liblal >=${{ lal_version }}
+        - libpython
         - numpy
         - pytest
         - python
@@ -109,16 +110,11 @@ outputs:
         - gsl
         - ${{ pin_subpackage('lalsimulation-data', exact=True) }}
         - liblal >=${{ lal_version }}
-        # the library links to libpython directly to embed the interpreter;
-        # constrain this to the python variant, otherwise the solver can pair
-        # an older python build that bundles libpython with a newer libpython
-        - libpython ${{ python }}
         - python
       run:
         - gsl
         - ${{ pin_subpackage('lalsimulation-data', exact=True) }}
         - liblal >=${{ lal_version }}
-        - ${{ pin_compatible('libpython', lower_bound='x.x', upper_bound='x.x') }}
         - python
       run_constraints:
         - lalsimulation >=2.5.0
