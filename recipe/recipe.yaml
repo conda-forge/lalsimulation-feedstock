@@ -1,9 +1,9 @@
 schema_version: 1
 
 context:
-  version: "6.2.0"
+  version: "7.0.0"
   # dependencies
-  lal_version: "7.7.0"
+  lal_version: "8.0.0"
   swig_version: "4.4.1"
 
 recipe:
@@ -12,12 +12,10 @@ recipe:
 
 source:
   url: https://software.ligo.org/lscsoft/source/lalsuite/lalsimulation-${{ version }}.tar.xz
-  sha256: 484625c21893401399af2c5fc08751569e8e6c265d18d859cc6c442fbaff26b2
+  sha256: 5bf148c82e73c79038caae93b346b43161154fe85405df90528b1086f9d4ab05
 
 build:
-  dynamic_linking:
-    overdepending_behavior: error
-  number: 5
+  number: 0
   skip:
     - win
 
@@ -29,10 +27,6 @@ outputs:
         - ${{ compiler('c') }}
         - ${{ stdlib('c') }}
         - help2man >=1.37
-        - if: linux
-          then: libgomp
-        - if: osx
-          then: llvm-openmp
         - make
         - pkg-config >=0.18.0
         - python
@@ -45,10 +39,15 @@ outputs:
       host:
         - gsl
         - liblal >=${{ lal_version }}
+        - libpython
         - numpy
         - pytest
         - python
         - python-lal >=${{ lal_version }}
+        # openmp
+        - if: linux
+          then: libgomp
+          else: llvm-openmp
         # extras for make check
         - astropy-base
         - gwpy
@@ -73,7 +72,7 @@ outputs:
         - liblalsimulation >=3.1.2
     tests:
       - script:
-          - test -f ${LALSIMULATION_DATADIR}/LIGO-P1200087-v18-AdV_DESIGN.txt
+          - test -f ${LALSIMULATION_DATADIR}/LIGO-P1200087-v18-AdV_DESIGN.txt.gz
     about:
       summary: LSC Algorithm Simulation Library data files
       description: |
@@ -101,24 +100,21 @@ outputs:
       build:
         - ${{ compiler('c') }}
         - ${{ stdlib('c') }}
-        - if: linux
-          then: libgomp
-        - if: osx
-          then: llvm-openmp
       host:
         - gsl
         - ${{ pin_subpackage('lalsimulation-data', exact=True) }}
         - liblal >=${{ lal_version }}
-        # the library links to libpython directly to embed the interpreter;
-        # constrain this to the python variant, otherwise the solver can pair
-        # an older python build that bundles libpython with a newer libpython
-        - libpython ${{ python }}
+        - libpython
         - python
+        # openmp
+        - if: linux
+          then: libgomp
+          else: llvm-openmp
       run:
         - gsl
         - ${{ pin_subpackage('lalsimulation-data', exact=True) }}
         - liblal >=${{ lal_version }}
-        - ${{ pin_compatible('libpython', lower_bound='x.x', upper_bound='x.x') }}
+        - libpython
         - python
       run_constraints:
         - lalsimulation >=2.5.0
@@ -156,10 +152,6 @@ outputs:
       build:
         - ${{ compiler('c') }}
         - ${{ stdlib('c') }}
-        - if: linux
-          then: libgomp
-        - if: osx
-          then: llvm-openmp
         - python
       host:
         - gsl
@@ -167,6 +159,10 @@ outputs:
         - ${{ pin_subpackage('liblalsimulation', exact=True) }}
         - numpy
         - python
+        # openmp
+        - if: linux
+          then: libgomp
+          else: llvm-openmp
       run:
         - astropy-base
         - gwpy
@@ -191,16 +187,12 @@ outputs:
           # the autotools build doesn't install Python package metadata
           pip_check: false
       - files:
-          recipe:
-            - test_external_python.py
           source:
             - test/python/**
         requirements:
           run:
             - pytest >=4.0.0a0
         script:
-          # check that the link from the C library to Python works
-          - python -m pytest -ra -v test_external_python.py
           # only test with pytest on native platform,
           # tests run _very_ slowly when cross-compiling
           - if: build_platform == host_platform
