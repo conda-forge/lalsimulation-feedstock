@@ -74,7 +74,7 @@ outputs:
         - liblalsimulation >=3.1.2
     tests:
       - script:
-          - test -f ${LALSIMULATION_DATADIR}/LIGO-P1200087-v18-AdV_DESIGN.txt
+          - test -f ${LALSIMULATION_DATADIR}/LIGO-P1200087-v18-AdV_DESIGN.txt.gz
     about:
       summary: LSC Algorithm Simulation Library data files
       description: |
