@@ -1,0 +1,40 @@
+From a4985f0aef482f467818b9fbe829491d5d9623da Mon Sep 17 00:00:00 2001
+From: Duncan Macleod <macleoddm@cardiff.ac.uk>
+Date: Thu, 12 Nov 2026 14:13:14 +0000
+Subject: [PATCH] fix(lalsimulation): patch bugs in conda activate scripts
+
+To allow them to work in stricter shell configurations
+---
+ lalsimulation/conda/deactivate-lalsimulation.csh | 2 +-
+ lalsimulation/conda/deactivate-lalsimulation.sh  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/lalsimulation/conda/deactivate-lalsimulation.csh b/lalsimulation/conda/deactivate-lalsimulation.csh
+index dd28d179f3..d8c7550d0e 100644
+--- a/lalsimulation/conda/deactivate-lalsimulation.csh
++++ b/lalsimulation/conda/deactivate-lalsimulation.csh
+@@ -3,7 +3,7 @@
+ # Deconfigure a conda environment for LALSimulation
+ #
+ 
+-if ($?LALSIMULATION_DATADIR) then
++if ($?CONDA_BACKUP_LALSIMULATION_DATADIR) then
+ 	setenv LALSIMULATION_DATADIR "$CONDA_BACKUP_LALSIMULATION_DATADIR"
+ 	unsetenv CONDA_BACKUP_LALSIMULATION_DATADIR
+ else
+diff --git a/lalsimulation/conda/deactivate-lalsimulation.sh b/lalsimulation/conda/deactivate-lalsimulation.sh
+index 6423ec1ecf..ed3e4fe177 100644
+--- a/lalsimulation/conda/deactivate-lalsimulation.sh
++++ b/lalsimulation/conda/deactivate-lalsimulation.sh
+@@ -4,7 +4,7 @@
+ #
+ 
+ # restore from backup
+-if [ ! -z "${CONDA_BACKUP_LALSIMULATION_DATADIR}" ]; then
++if [ -n "${CONDA_BACKUP_LALSIMULATION_DATADIR+x}" ]; then
+ 	export LALSIMULATION_DATADIR="${CONDA_BACKUP_LALSIMULATION_DATADIR}"
+ 	unset CONDA_BACKUP_LALSIMULATION_DATADIR
+ # no backup, just unset
+-- 
+2.47.3
+

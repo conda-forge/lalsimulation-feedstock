@@ -13,6 +13,8 @@ recipe:
 source:
   url: https://software.igwn.org/lscsoft/source/lalsuite/lalsimulation-${{ version }}.tar.xz
   sha256: d24fc718ed353ed2e637ee8d48f632161601ea4f2a706b5b48e87ba070cea936
+  patches:
+    - 0001-fix-lalsimulation-patch-bugs-in-conda-activate-scrip.patch
 
 build:
   number: 0
