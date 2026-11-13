@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "7.0.0"
+  version: "7.0.1"
   # dependencies
   lal_version: "8.0.0"
   swig_version: "4.4.1"
@@ -11,8 +11,10 @@ recipe:
   version: ${{ version }}
 
 source:
-  url: https://software.ligo.org/lscsoft/source/lalsuite/lalsimulation-${{ version }}.tar.xz
-  sha256: 5bf148c82e73c79038caae93b346b43161154fe85405df90528b1086f9d4ab05
+  url: https://software.igwn.org/lscsoft/source/lalsuite/lalsimulation-${{ version }}.tar.xz
+  sha256: d24fc718ed353ed2e637ee8d48f632161601ea4f2a706b5b48e87ba070cea936
+  patches:
+    - 0001-fix-lalsimulation-patch-bugs-in-conda-activate-scrip.patch
 
 build:
   number: 0
